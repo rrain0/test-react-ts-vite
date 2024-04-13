@@ -3,6 +3,7 @@ import viteLogo from '/vite.svg'
 import reactLogo from 'src/res/img/react.svg'
 import tsLogo from 'src/res/img/Typescript-logo.png'
 import 'src/ui/pages/App/App.css'
+import ContextProvider from 'src/ui/components/ContextTest/ContextProvider'
 import SetStateTest1 from 'src/ui/components/SetStateTest/SetStateTest1';
 import SetStateTest2 from 'src/ui/components/SetStateTest/SetStateTest2';
 import SetStateTest3 from 'src/ui/components/SetStateTest/SetStateTest3';
@@ -60,11 +61,15 @@ function App(){
       </div>
       <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
       
-      <UseEffectTestContainer/>
+      {/* <UseEffectTestContainer/> */}
       
+      <ContextProvider/>
+      
+      {/*
       <SetStateTest1/>
       <SetStateTest2/>
       <SetStateTest3/>
+      */}
       
     </>
   )
