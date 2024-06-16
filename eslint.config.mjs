@@ -87,16 +87,21 @@ export default [
       }
     },
     rules: {
+      // react rules
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
       'react/jsx-no-target-blank': 'off',
       'react/function-component-definition': 'error',
+      'react/prop-types': 'off',
+      
+      // ts rules:
+      '@typescript-eslint/no-unused-vars': 'off',
       
       // code style rules:
       '@stylistic/js/arrow-parens': ['error', 'as-needed'],
-      '@stylistic/js/arrow-spacing': ['error', { before: false, after: false }],
+      '@stylistic/js/arrow-spacing': ['error', { before: true, after: true }],
       '@stylistic/js/block-spacing': ['error', 'always'],
       '@stylistic/js/brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
       '@stylistic/js/comma-dangle': ['error', {
@@ -155,7 +160,7 @@ export default [
       '@stylistic/js/semi-style': ['error', 'first'],
       '@stylistic/js/space-before-blocks': [
         'error',
-        { functions: 'never', keywords: 'always', classes: 'always' }
+        { functions: 'always', keywords: 'always', classes: 'always' }
       ],
       '@stylistic/js/space-before-function-paren': ['error', 'never'],
       '@stylistic/js/space-in-parens': ['error', 'never'],
