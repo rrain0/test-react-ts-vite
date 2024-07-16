@@ -16,7 +16,7 @@ function Landing() {
   const [count, setCount] = useState(0)
   console.log('reactLogo', reactLogo)
   return (
-    <div className='colC gap-[10px]'>
+    <div className='colC gap-[10px] w-full p-[2rem] text-center'>
       <div className='row'>
         <a
           href='https://vitejs.dev'

@@ -3,6 +3,7 @@ import path from 'node:path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import glsl from 'vite-plugin-glsl'
 import svgr from 'vite-plugin-svgr'
 import checker from 'vite-plugin-checker'
 
@@ -34,28 +35,33 @@ const projectRoot: string = process.cwd() // current working directory
 
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  server: {
-    host: true, // expose app via IP access from local network
-    //port: 40000,
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:3000', // адрес бэка
-    //     changeOrigin: true,
-    //     rewrite: path=>path.replace(/^\/api/,''),
-    //   },
-    // }
-  },
-  plugins: [
-    react(),
-    tsconfigPaths(),
-    svgr(),
-    /* svgr({
-      svgrOptions: { exportType: 'named', ref: true, svgo: false, titleProp: true, typescript: true },
-      include: '**!/!*.svg',
-    }), */
-    checker({
-      typescript: true, // use TypeScript check
-    }),
-  ],
+export default defineConfig(({ command, mode }) => {
+  
+  return {
+    server: {
+      host: true, // expose app via IP access from local network
+      //port: 40000,
+      // proxy: {
+      //   '/api': {
+      //     target: 'http://localhost:3000', // адрес бэка
+      //     changeOrigin: true,
+      //     rewrite: path=>path.replace(/^\/api/,''),
+      //   },
+      // }
+    },
+    plugins: [
+      react(),
+      tsconfigPaths(),
+      // https://www.npmjs.com/package/vite-plugin-glsl
+      glsl(),
+      svgr(),
+      /* svgr({
+       svgrOptions: { exportType: 'named', ref: true, svgo: false, titleProp: true, typescript: true },
+       include: '**!/!*.svg',
+       }), */
+      checker({
+        typescript: true, // use TypeScript check
+      }),
+    ],
+  }
 })

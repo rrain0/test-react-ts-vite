@@ -87,7 +87,9 @@ export default [
       'react/function-component-definition': 'off',
       'react/prop-types': 'off',
       // for emotion css property
-      'react/no-unknown-property': ['error', { 'ignore': ['css'] }],
+      //'react/no-unknown-property': ['error', { 'ignore': ['css'] }],
+      // it does not work with @react-three/fiber, so disable it
+      'react/no-unknown-property': 'off',
     },
   },
   
@@ -156,7 +158,6 @@ export default [
         MemberExpression: 0,
         ignoreComments: true,
       }],
-      '@stylistic/jsx-quotes': ['error', 'prefer-single'],
       '@stylistic/key-spacing': ['error', { beforeColon: false, afterColon: true }],
       '@stylistic/keyword-spacing': ['error', { before: true, after: true }],
       //'@stylistic/linebreak-style': ['error', 'unix'], // doesn't matter what linebreak style - git fixes it
@@ -208,6 +209,10 @@ export default [
       '@stylistic/wrap-iife': 'off',
       '@stylistic/wrap-regex': 'off',
       '@stylistic/yield-star-spacing': 'off',
+      
+      // JSX rules
+      '@stylistic/jsx-quotes': ['error', 'prefer-single'],
+      '@stylistic/jsx-wrap-multilines': ['error', { return: 'parens-new-line' }],
     },
   },
   
