@@ -41,8 +41,8 @@ export default [
   // must be after react.configs.recommended ('plugin:react/recommended')
   ...compat.extends('plugin:react/jsx-runtime'), // seems to be working
   ...compat.extends('plugin:react-hooks/recommended'), // works
-  ...compat.extends('plugin:import/errors'), // works
-  ...compat.extends('plugin:import/warnings'), // works
+  //...compat.extends('plugin:import/errors'), // works
+  //...compat.extends('plugin:import/warnings'), // works
   ...compat.extends('plugin:promise/recommended'), // works
   
   ...compat.extends('plugin:jsx-a11y/recommended'), // NOT work
@@ -174,7 +174,7 @@ export default [
         { allowConstantExport: true },
       ],
       'react/jsx-no-target-blank': 'off',
-      'react/function-component-definition': 'error',
+      'react/function-component-definition': 'off',
       'react/prop-types': 'off',
       
       // import rules

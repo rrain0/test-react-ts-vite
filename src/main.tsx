@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from 'src/ui/pages/App/App.tsx'
-import './index.css'
+import App from 'src/ui/App/App.tsx'
+import 'src/ui-data/style/index.css'
 
 
 

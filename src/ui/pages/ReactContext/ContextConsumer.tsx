@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { TestContext } from 'src/ui/components/ContextTest/ContextProvider'
+import { TestContext } from 'src/ui/pages/ReactContext/ContextProvider.tsx'
 
 
 const ContextConsumer =

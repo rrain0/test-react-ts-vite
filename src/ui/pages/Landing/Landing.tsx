@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import viteLogo from '/vite.svg'
+import { Link } from 'react-router-dom'
 import reactLogo from 'src/res/img/react.svg'
 import tsLogo from 'src/res/img/Typescript-logo.png'
-import 'src/ui/pages/App/App.css'
-import ContextProvider from 'src/ui/components/ContextTest/ContextProvider'
+import 'src/ui/pages/Landing/Landing.css'
 import SetStateTest1 from 'src/ui/components/SetStateTest/SetStateTest1'
 import SetStateTest2 from 'src/ui/components/SetStateTest/SetStateTest2'
 import SetStateTest3 from 'src/ui/components/SetStateTest/SetStateTest3'
@@ -11,12 +11,13 @@ import UseEffectTestContainer from 'src/ui/components/UseEffectTest/UseEffectTes
 
 
 
-function App() {
+
+function Landing() {
   const [count, setCount] = useState(0)
   console.log('reactLogo', reactLogo)
   return (
-    <>
-      <div>
+    <div className='colC gap-[10px]'>
+      <div className='row'>
         <a
           href='https://vitejs.dev'
           target='_blank'>
@@ -61,9 +62,20 @@ function App() {
       </div>
       <p className='read-the-docs'>Click on the Vite and React logos to learn more</p>
       
+      <div className='h-[60px]'/>
+      
+      <div className='rowW gap-[30px]'>
+        <Link to='/three-js'>
+          <button>Three JS</button>
+        </Link>
+        <Link to='/react-context'>
+          <button>React Context</button>
+        </Link>
+      </div>
+      
+      
       {/* <UseEffectTestContainer/> */}
       
-      <ContextProvider/>
       
       {/*
       <SetStateTest1/>
@@ -74,10 +86,10 @@ function App() {
       
       
       {/*
-      When ParentComponent was re-rendered by her state change,
-      ChildComponent did not render because the App did not render.
-      This technique is called 'Lifting the state up'.
-      ChildComponent as a prop from App component did not change so did not render.
+        When ParentComponent was re-rendered by her state change,
+        ChildComponent did not render because the App did not render.
+        This technique is called 'Lifting the state up'.
+        ChildComponent as a prop from App component did not change so did not render.
       */}
       {/*
       <ParentComponent>
@@ -85,11 +97,11 @@ function App() {
       </ParentComponent>
       */}
       
-    </>
+    </div>
   )
 }
 
-export default App
+export default Landing
 
 
 
