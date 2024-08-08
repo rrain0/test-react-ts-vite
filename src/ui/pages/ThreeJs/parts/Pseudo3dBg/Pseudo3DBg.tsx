@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { Canvas, extend, Object3DNode, useFrame, useThree } from '@react-three/fiber'
 import { Plane, shaderMaterial, useTexture } from '@react-three/drei'
 import CustomLayer from 'src/ui/pages/ThreeJs/parts/Planet/CustomLayer'
-import { Material } from 'three'
+import { Material, ShaderMaterial } from 'three'
 
 import colorMountains from './color-mountains.jpg'
 import depthMountains from './depth-mountains.png'
@@ -29,16 +29,23 @@ export default Pseudo3DBg
 
 
 function Model() {
-  const depthMaterial = useRef<Material>()
+  const depthMaterial = useRef<ShaderMaterial>(null)
   const texture = useTexture(colorMountains)
   const depthMap = useTexture(depthMountains)
   const { viewport } = useThree()
   useFrame(state => {
-    depthMaterial.current.uMouse = [state.pointer.x * 0.01, state.pointer.y * 0.01]
+    const dm = depthMaterial.current
+    if (dm) {
+      dm.uMouse = [state.pointer.x * 0.01, state.pointer.y * 0.01]
+    }
   })
   return (
     <Plane args={[1, 1]} scale={[viewport.width, viewport.height, 1]}>
-      <pseudo3DBgMaterial ref={depthMaterial} uImage={texture} uDepthMap={depthMap} />
+      <pseudo3DBgMaterial
+        ref={depthMaterial}
+        uImage={texture}
+        uDepthMap={depthMap}
+      />
     </Plane>
   )
 }
@@ -54,7 +61,7 @@ extend({ Pseudo3DBgMaterial })
 // Add types to ThreeElements elements so primitives pick up on it
 declare module '@react-three/fiber' {
   interface ThreeElements {
-    pseudo3DBgMaterial: Object3DNode<Pseudo3DBgMaterial, typeof Pseudo3DBgMaterial>
+    pseudo3DBgMaterial: Object3DNode<typeof Pseudo3DBgMaterial, typeof Pseudo3DBgMaterial>
   }
 }
 

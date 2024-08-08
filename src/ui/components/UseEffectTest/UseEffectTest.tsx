@@ -1,10 +1,10 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useBoolState } from 'src/util/useBoolState';
+import { useBool } from 'src/util/react-state-and-ref/useBool';
 
 
 const UseEffectTest =
 React.memo(()=>{
-  const [showDiv, , , toggleDiv] = useBoolState(true)
+  const [showDiv, , , toggleDiv] = useBool(true)
   const [cnt, setCnt] = useState(0)
   
   const cntDivRef = useRef<HTMLDivElement>(null)

@@ -5,7 +5,7 @@ Attributes provide individual data for each vertex.
 */
 
 
-// Auto injected attributes:
+// Auto injected attributes by three.js:
 
 // Position of current vertex
 //attribute vec3 position;

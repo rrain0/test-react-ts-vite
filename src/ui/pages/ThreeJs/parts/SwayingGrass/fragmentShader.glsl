@@ -9,12 +9,14 @@ uniform float u_phaseDifference;
 uniform float u_phase;
 uniform float u_speed;
 
+
 varying vec4 v_posFrom0To1;
+//varying vec2 vUv;
 
 void main() {
   float shift =
     u_strength * (v_posFrom0To1.y - u_horizonHeight)
     * sin((u_time + u_phase) * u_speed + v_posFrom0To1.x * u_phaseDifference);
   gl_FragColor = texture2D(u_texture, v_posFrom0To1.xy + shift);
+  //gl_FragColor = texture2D(u_texture, vUv);
 }
-

@@ -1,13 +1,13 @@
 import React from 'react';
 import UseEffectTest from 'src/ui/components/UseEffectTest/UseEffectTest';
-import { useBoolState } from 'src/util/useBoolState';
+import { useBool } from 'src/util/react-state-and-ref/useBool';
 
 
 
 const UseEffectTestContainer =
 React.memo(
 ()=>{
-  const [isShowing, , , toggleShowing] = useBoolState(true)
+  const [isShowing, , , toggleShowing] = useBool(true)
   
   return <>
     <button onClick={toggleShowing}>Show UseEffectTest</button>

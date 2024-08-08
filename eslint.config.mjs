@@ -212,7 +212,10 @@ export default [
       
       // JSX rules
       '@stylistic/jsx-quotes': ['error', 'prefer-single'],
-      '@stylistic/jsx-wrap-multilines': ['error', { return: 'parens-new-line' }],
+      '@stylistic/jsx-wrap-multilines': ['error', {
+        return: 'parens-new-line',
+        arrow: 'parens-new-line',
+      }],
     },
   },
   
