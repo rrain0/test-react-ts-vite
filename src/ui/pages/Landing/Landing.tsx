@@ -71,6 +71,9 @@ function Landing() {
         <Link to='/react-context'>
           <button>React Context</button>
         </Link>
+        {/* <Link to='/yandex-translate'>
+          <button>Yandex Translate</button>
+        </Link> */}
       </div>
       
       

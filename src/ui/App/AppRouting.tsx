@@ -20,6 +20,10 @@ const rootRoutes: RouteObject[] = [
     path: 'react-context',
     Component: ReactContext,
   },
+  /* {
+    path: 'yandex-translate',
+    Component: YandexTranslatePage,
+  }, */
 ]
 const router = createBrowserRouter(rootRoutes)
 
