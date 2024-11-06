@@ -1,13 +1,17 @@
 import { css } from '@emotion/react'
 import { animated, useSpring } from '@react-spring/web'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useAsRefGet } from 'src/util/react-state/useAsRefGet'
 import { useBool } from 'src/util/react-state/useBool'
 
 
 const InfiniteAnimation = React.memo(() => {
   const [isAnimating, , , toggleIsAnimating] = useBool(true)
+  const getIsAnimating = useAsRefGet(isAnimating)
   
-  const scale = useSpring(isAnimating
+  useEffect(() => console.log('isAnimating', isAnimating), [isAnimating])
+  
+  const scale = useSpring(!isAnimating
     ? {
       to: { scale: 1 },
       immediate: true,
@@ -15,7 +19,7 @@ const InfiniteAnimation = React.memo(() => {
     : {
       from: { scale: 0.5 },
       to: async next => {
-        while (true) {
+        while (getIsAnimating()) {
           await next({ scale: 0.9 });
           await next({ scale: 0.5 });
         }
@@ -26,7 +30,6 @@ const InfiniteAnimation = React.memo(() => {
         friction: 6,
       },
     }
-  
   );
   
   return (
