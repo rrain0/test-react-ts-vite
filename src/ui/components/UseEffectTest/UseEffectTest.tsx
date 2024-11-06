@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useBool } from 'src/util/react-state-and-ref/useBool';
+import { useBool } from 'src/util/react-state/useBool';
 
 
 const UseEffectTest =

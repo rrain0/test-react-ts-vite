@@ -64,13 +64,21 @@ function Landing() {
       
       <div className='h-[60px]'/>
       
+      
       <div className='rowW gap-[30px]'>
+        
         <Link to='/three-js'>
           <button>Three JS</button>
         </Link>
+        
         <Link to='/react-context'>
           <button>React Context</button>
         </Link>
+        
+        <Link to='/react-spring'>
+          <button>React Spring</button>
+        </Link>
+        
         {/* <Link to='/yandex-translate'>
           <button>Yandex Translate</button>
         </Link> */}

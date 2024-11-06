@@ -1,6 +1,6 @@
 import React from 'react';
 import UseEffectTest from 'src/ui/components/UseEffectTest/UseEffectTest';
-import { useBool } from 'src/util/react-state-and-ref/useBool';
+import { useBool } from 'src/util/react-state/useBool';
 
 
 

@@ -50,7 +50,12 @@ export default defineConfig(({ command, mode }) => {
       // }
     },
     plugins: [
-      react(),
+      react({
+        jsxImportSource: '@emotion/react',
+        babel: {
+          plugins: ['@emotion/babel-plugin'],
+        },
+      }),
       tsconfigPaths(),
       // https://www.npmjs.com/package/vite-plugin-glsl
       glsl(),
