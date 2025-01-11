@@ -12,6 +12,19 @@ type Example2 = RegExp extends Animal ? number : string;
 
 
 
+{
+  const f = (c?: number | undefined) => {
+    if (c) return {a: c}
+    else return {b: 1}
+  }
+  
+  const c1 = undefined
+  const obj = f(c1) as typeof c1 extends undefined ? { b: 1 } : { a: typeof c1 } // typeof obj is {b: 1}
+  //obj.a = 8 // not permitted but b in this case can't be undefined
+}
+
+
+
 interface IdLabel { id: number /* some fields */ }
 interface NameLabel { name: string /* other fields */ }
 
@@ -31,13 +44,6 @@ type NameOrId<T extends number | string> = T extends number ? IdLabel : NameLabe
 function createLabel2<T extends string | number>(nameOrId: T): NameOrId<T> { throw "unimplemented";}
 
 
-// function type
-type UserGenerator0 = (username: string, email?: string) => string;
-// function type overloading
-type UserGenerator1 = {
-  (username: string): string;
-  (username: string, email?: string): string;
-};
 
 
 
@@ -94,3 +100,21 @@ type StrArrOrNumArrNotDist = ToArrayNonDist<string | number>; // type StrArrOrNu
   }
 }
 
+
+
+
+function NoInferType() {
+  {
+    const createStreetLight = <C extends string>(colors: C[], defaultColor?: C) => { }
+    // C is "red" | "yellow" | "green" | "blue"
+    createStreetLight(['red', 'yellow', 'green'], 'blue')
+  }
+  {
+    const createStreetLight = <C extends string>(colors: C[], defaultColor?: NoInfer<C>) => { }
+    // C is 'red' | 'yellow' | 'green' | undefined
+    createStreetLight(
+      ['red', 'yellow', 'green']
+      //"blue" // ERROR "blue" is not added to type C because of NoInfer
+    )
+  }
+}
