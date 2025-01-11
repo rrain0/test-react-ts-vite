@@ -74,20 +74,21 @@ type StrArrOrNumArrNotDist = ToArrayNonDist<string | number>; // type StrArrOrNu
 
 
 {
-  // ts4.7 extends Constraints on infer Type Variables
-  
   // Вернуть тип строки первого элемента, если это строка, иначе never:
   {
+    // Variant 1
     type FirstIfString<T> = T extends [infer S, ...unknown[]]
       ? S extends string ? S : never
       : never
   }
   {
+    // Variant 2
     type FirstIfString<T> = T extends [string, ...unknown[]]
       ? T[0]
       : never
   }
   {
+    // Variant 3 - place a constraint on infer type
     type FirstIfString<T> = T extends [infer S extends string, ...unknown[]]
       ? S
       : never
