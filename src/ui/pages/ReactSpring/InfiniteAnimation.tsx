@@ -7,7 +7,7 @@ import { useBool } from 'src/util/react-state/useBool'
 
 const InfiniteAnimation = React.memo(() => {
   const [isAnimating, , , toggleIsAnimating] = useBool(true)
-  const getIsAnimating = useAsRefGet(isAnimating)
+  const [getIsAnimating] = useAsRefGet(isAnimating)
   
   useEffect(() => console.log('isAnimating', isAnimating), [isAnimating])
   
@@ -19,9 +19,11 @@ const InfiniteAnimation = React.memo(() => {
     : {
       from: { scale: 0.5 },
       to: async next => {
-        while (getIsAnimating()) {
-          await next({ scale: 0.9 });
-          await next({ scale: 0.5 });
+        while (true) {
+          if (!getIsAnimating()) break
+          await next({ scale: 0.9 })
+          if (!getIsAnimating()) break
+          await next({ scale: 0.5 })
         }
       },
       config: {
@@ -30,7 +32,7 @@ const InfiniteAnimation = React.memo(() => {
         friction: 6,
       },
     }
-  );
+  )
   
   return (
     <animated.div

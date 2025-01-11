@@ -8,17 +8,15 @@ import fragmentShader from './fragmentShader.glsl'
 
 
 
-const Gradient2 = React.memo(
-  () => {
+const Gradient2 = React.memo(() => {
     
-    return (
-      <div className='colC gap-[4px]'>
-        <div>Gradient 2</div>
-        <Scene/>
-      </div>
-    )
-  }
-)
+  return (
+    <div className='colC gap-[4px]'>
+      <div>Gradient 2</div>
+      <Scene/>
+    </div>
+  )
+})
 export default Gradient2
 
 

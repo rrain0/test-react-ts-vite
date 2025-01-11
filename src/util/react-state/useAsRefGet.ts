@@ -1,10 +1,10 @@
-import { useRefGetSet } from 'src/util/react-state-and-ref/useRefGetSet.ts'
+import { useRefGetSet } from 'src/util/react-state/useRefGetSet.ts'
 
 
 
 export const useAsRefGet = <T>(currentValue: T) => {
-  const [get, set] = useRefGetSet(currentValue)
+  const [get, set, ref] = useRefGetSet(currentValue)
   set(currentValue)
-  return get
+  return [get, ref] as const
 }
 
