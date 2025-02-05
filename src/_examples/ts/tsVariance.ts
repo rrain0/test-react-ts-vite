@@ -6,15 +6,16 @@
 /*
  Type variance:
  ● <T> - no explicit variance - auto detection of variance
- ● <in T> - covariance - set T - T is input parameter.
+ ● <in T> - covariance, set T, sub-T, T is input parameter.
     Parameter only for read from it (in = input parameter).
-    You can use T or its parents (super-T).
- ● <out T> - contravariance - get T - T is output parameter.
-    Parameter only for write into it (out = output parameter).
     You can use T or its children (sub-T).
- ● <in out T> - invariance - parameter for read & write
+ ● <out T> - contravariance, get T, super-T, T is output parameter.
+    Parameter only for write into it (out = output parameter).
+    You can use T or its parents (super-T).
+ ● <in out T> - invariance, parameter for read & write
     You can use only T (not parents or children of type T).
-    You shouldn't explicitly specify variance everywhere, it is automatically detected!!!
+    
+ You shouldn't explicitly specify variance everywhere, it is automatically detected!!!
  */
 interface Animal { animalStuff: any }
 interface Dog extends Animal { dogStuff: any }
