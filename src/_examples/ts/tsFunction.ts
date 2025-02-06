@@ -52,18 +52,20 @@
     // return <TReturn = 'end' | 'cancel'>
     return 'end' as const
   }
-  
+  // Создали генератор, он пока не запущен вообще
   let generator = createFromOneToTenGenerator()
+  // Запустили от начала функции до первого yield
   console.log(generator.next()) // => { value: 1, done: false }
+  // Выполнили от первого yield до следующего yield
   console.log(generator.next()) // => { value: 2, done: false }
-  console.log(generator.next(true)) // => { value: 'cancel', done: true }
+  console.log(generator.next(true /* TNext */)) // => { value: 'cancel', done: true }
   console.log(generator.next()) // => { value: undefined, done: true }
   console.log(generator.next()) // => { value: undefined, done: true }
-  console.log(generator.return('end')) // => { value: 'end', done: true }
-  console.log(generator.return('cancel')) // => { value: 'cancel', done: true }
+  console.log(generator.return('end' /* TReturn */)) // => { value: 'end', done: true }
+  console.log(generator.return('cancel'/* TReturn */)) // => { value: 'cancel', done: true }
   
   generator = createFromOneToTenGenerator()
   console.log(generator.next()) // => { value: 1, done: false }
-  console.log(generator.return('cancel')) // => { value: 'cancel', done: true }
+  console.log(generator.return('cancel'/* TReturn */)) // => { value: 'cancel', done: true }
   console.log(generator.next()) // => { value: undefined, done: true }
 }
