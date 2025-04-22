@@ -1,12 +1,11 @@
 
 
 {
-  // Function type - variant 1
+  // Variant 1 - Type of function
+  // Cannot use generics
   type UserCreator = (username: string, email?: string) => string;
-  const userCreator: UserCreator = (username: string, email?: string) => ''
-  {
-    const userCreator: UserCreator = function(username: string, email?: string) { return '' }
-  }
+  {  const userCreator: UserCreator = (username: string, email?: string) => ''  }
+  {  const userCreator: UserCreator = function(username: string, email?: string) { return '' }  }
 }
 {
   // Function type overloading - variant 1
@@ -14,15 +13,14 @@
     (username: string): string;
     (username: string, email: string): string;
   };
-  const userCreator: UserCreator = (username: string, email?: string) => ''
-  {
-    const userCreator: UserCreator = function(username: string, email?: string) { return '' }
-  }
+  {  const userCreator: UserCreator = (username: string, email?: string) => ''  }
+  {  const userCreator: UserCreator = function(username: string, email?: string) { return '' }  }
 }
 
 
 {
-  // Function type - variant 2
+  // Variant 2 - Function type
+  // Can use generics
   // Can't use arrow function syntax
   function userCreator(username: string, email?: string): string
   function userCreator(username: string, email?: string) { return '' }
@@ -33,6 +31,34 @@
   function userCreator(username: string): string
   function userCreator(username: string, email: string): string
   function userCreator(username: string, email?: string) { return '' }
+}
+{
+  // Смысл что если входной масси может быть undefined, то выходной тоже.
+  // Но если входной массив не может быть undefined, То выходной тоже.
+  function mapToIf<T, E = T>(arr: T[], mapper: (el: T, i: number, arr: T[]) => E): E[]
+  function mapToIf<T, E = T>(
+    arr: T[] | undefined, mapper: (el: T, i: number, arr: T[]) => E
+  ): E[] | undefined
+  function mapToIf<T, E = T>(
+    arr: T[] | undefined,
+    mapper: (el: T, i: number, arr: T[]) => E
+  ): E[] | undefined {
+    if (!arr) return undefined
+    let changed = false
+    let newArr = arr as unknown as E[]
+    arr.forEach((el, i) => {
+      const newEl = mapper(el, i, arr)
+      if (newEl !== el as unknown as E) {
+        if (!changed) {
+          newArr = [...arr] as unknown as E[]
+          changed = true
+        }
+        newArr[i] = newEl
+      }
+    })
+    return newArr
+  }
+  
 }
 
 
