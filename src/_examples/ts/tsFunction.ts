@@ -1,5 +1,16 @@
 
 
+
+
+{
+  // if param can be 'void' then you can omit it
+  function foo(param: string | void) {}
+  foo('aa')
+  foo()
+}
+
+
+
 {
   // Variant 1 - Type of function
   // Cannot use generics
