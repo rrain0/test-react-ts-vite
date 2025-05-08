@@ -1,5 +1,5 @@
 import { TypeU } from 'src/util/common/TypeU.ts'
-import isArray = TypeU.isArray
+import isnumber = TypeU.isnumber
 
 
 
@@ -7,20 +7,31 @@ export namespace MathU {
   
   
   
-  export const ifNaN = <T = number>(n: number, replacement: T) => isNaN(n) ? replacement : n
-  
-  
-  
   /**
    * Функция округления
+   * !!! Деление после округления всё равно может всё сломать
    * @param n Значение
-   * @param scale Масштаб
+   * @param scale - округлить до {scale} числа после запятой
    * @returns {number}
    */
-  export const round = (n: number, scale: number = 0): number => {
-    const mult = (n < 0 ? -1 : 1) * 10 ** scale
-    return Math.round(n * mult) / mult
+  // export const round = (n: number, scale: number = 0): number => {
+  //   const mult = (n < 0 ? -1 : 1) * 10 ** scale
+  //   return Math.round(n * mult) / mult
+  // }
+  // export const round1 = (n: number) => round(n, 1)
+  // export const round3 = (n: number) => round(n, 3)
+  
+  
+  // Round using toFixed
+  // It rounds halfUp to +Inf
+  // Scale must be 0..100
+  export const rf = (n: number, scale: number = 0): number => {
+    return +n.toFixed(scale)
   }
+  export const rf1 = (n: number) => rf(n, 1)
+  export const rf3 = (n: number) => rf(n, 3)
+  export const rf5 = (n: number) => rf(n, 5)
+  
   
   /**
    * Возвращение округлённого в сторону нуля числа
@@ -62,28 +73,20 @@ export namespace MathU {
   }
   
   
-  /**
-   * Получение процента
-   * @param value Значение
-   * @param total Общее значение
-   * @param scale Масштаб
-   * @returns {number}
-   */
-  export const percent =
-    (value: number, total: number, scale: number = 1): number => {
-    return round((value * 100) / total, scale)
-  }
-  
-  
   
   /**
-   * Остаток от делния
-   * @param a Значение a
-   * @param b Значение b
-   * @returns {number} (a + b) % b
+   * Остаток от деления - альтернативная версия
+   * Можно назвать это rem (remainder)
+   * mod(2, 8) => 2
+   * mod(-2, 8) => 6
+   * mod(10, 8) => 2
+   * mod(-10, 8) => 6 ( то есть 8 * 2 + (-10) )
+   * @param a Делимое
+   * @param b Делитель
+   * @returns {number} Остаток
    */
   export function mod(a: number, b: number): number {
-    return (a + b) % b
+    return ((a % b) + b) % b
   }
   
   // Целочисленное деление
@@ -94,25 +97,6 @@ export namespace MathU {
   // Целочисленное деление с округлением вверх
   export function divCeil(a: number, b: number): number {
     return MathU.ceilToInfs(a / b)
-  }
-  
-  
-  
-  // current+1 in range inclusive
-  export const nextLooped = (curr: number, range: [min: number, max: number]) =>
-    curr <= range[0] ? range[0] + 1 : curr >= range[1] ? range[0] : curr + 1
-  
-  // current-1 in range inclusive
-  export const prevLooped = (curr: number, range: [min: number, max: number]) =>
-    curr <= range[0] ? range[1] : curr >= range[1] ? range[1] - 1 : curr - 1
-  
-  
-  
-  // useful when you try to pick the next or prev value and want it to loops in range when exceeded
-  export const loopRange = (curr: number, range: [min: number, max: number]) => {
-    if (curr < range[0]) return range[1]
-    if (curr > range[1]) return range[0]
-    return curr
   }
   
   
@@ -128,14 +112,14 @@ export namespace MathU {
   export function random(to?: number): number
   export function random(a?: number, b?: number): number {
     let from = 0, to = 1
-    if (typeof a === 'number' && typeof b === 'number') {
+    if (isnumber(a) && isnumber(b)) {
       from = a
       to = b
     }
-    else if (typeof a === 'number') {
+    else if (isnumber(a)) {
       to = a
     }
-    if (from >= to) throw new Error(`'to'=${to} must be greater than 'from'=${from}`)
+    if (from >= to) throw new Error(`'to'=${to} must be gt than 'from'=${from}`)
     return (to - from) * Math.random() + from
   }
   
@@ -144,22 +128,27 @@ export namespace MathU {
   /**
    * Возвращение целого случайного числа в диапазоне [{@linkcode from},{@linkcode to}]
    * @param [from=0] - начало диапазона включительно
-   * @param [to=1] - конец диапазона включительно, {@linkcode to} должно быть больше-равно чем {@linkcode from}
+   * @param [to=1] - конец диапазона включительно,
+   *                 {@linkcode to} должно быть больше-равно чем {@linkcode from}
    * @returns {number} - случайное число из диапазона [{@linkcode from},{@linkcode to}]
    */
   export function randomInt(from: number, to: number): number
   export function randomInt(to?: number): number
   export function randomInt(a?: number, b?: number): number {
     let from = 0, to = 1
-    if (typeof a === 'number' && typeof b === 'number') {
-      from = floorTo0(a)
-      to = floorTo0(b)
+    if (isnumber(a) && isnumber(b)) {
+      from = a
+      to = b
     }
-    else if (typeof a === 'number') {
-      to = floorTo0(a)
+    else if (isnumber(a)) {
+      to = a
     }
-    if (from > to) throw new Error(`'to'=${to} must be greater-equal than 'from'=${from}`)
+    if (from > to) throw new Error(`'to'=${to} must be gte than 'from'=${from}`)
     return floorTo0(random(from, to + 1))
+  }
+  
+  export function randomNonNegInt() {
+    return randomInt(0, Number.MAX_SAFE_INTEGER)
   }
   
   

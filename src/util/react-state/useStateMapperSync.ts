@@ -6,7 +6,7 @@ import Mapper2 = TypeU.Mapper2
 
 
 
-export const useStateSync2 =
+export const useStateMapperSync =
 <M, S>(
   main: M, secondary: S,
   setMain: Setter<M>, setSecondary: Setter<S>,
@@ -14,7 +14,7 @@ export const useStateSync2 =
 ) => {
   
   /*
-  useEffect(()=>{
+  useEffect(() => {
     console.log('main, secondary', main, secondary)
   }, [main, secondary])
   */

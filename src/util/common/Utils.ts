@@ -1,5 +1,3 @@
-import { TypeU } from 'src/util/common/TypeU.ts'
-import Mapper = TypeU.Mapper
 
 
 
@@ -7,13 +5,10 @@ import Mapper = TypeU.Mapper
 export namespace Utils {
   
   
-  export const my = <T1, T2>(obj: T1, handler: Mapper<T1, T2>) => handler(obj)
-  
-  
   export class Lazy<T> {
     private inited = false
     private value!: T
-    constructor( private initializer: ()=>T ) {}
+    constructor( private initializer: () => T ) {}
     get() {
       if (!this.inited) {
         this.inited = true

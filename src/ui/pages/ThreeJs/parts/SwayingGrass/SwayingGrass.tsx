@@ -1,9 +1,9 @@
+import { useElemRefGetSet } from '@util/view/useElemRefGetSet.ts'
+import { getViewProps } from '@util/view/ViewProps.ts'
 import React, { useCallback, useRef } from 'react'
 import { Canvas, extend, MaterialNode, Object3DNode, useFrame, useThree } from '@react-three/fiber'
 import { Plane, shaderMaterial, useTexture } from '@react-three/drei'
 import { TypeU } from 'src/util/common/TypeU'
-import { getElemProps } from 'src/util/element/ElemProps'
-import { useElemRef } from 'src/util/react-state-and-ref/useElemRef'
 import { IUniform, ShaderMaterial, ShaderMaterialParameters, Texture } from 'three'
 import * as THREE from 'three'
 import Callback1 = TypeU.Callback1
@@ -15,31 +15,29 @@ import fragmentShader from './fragmentShader.glsl'
 
 
 
-const SwayingGrass = React.memo(
-  () => {
-    const [frameRef, getFrame] = useElemRef()
-    const setRatio = useCallback((aspectRatio: number) => {
-      const f = getFrame()
-      if (f) {
-        const w = getElemProps(f).w
-        f.style.height = `${w / aspectRatio}px`
-      }
-    }, [])
-    
-    
-    return (
-      <div className='colC gap-[4px]'>
-        <div>Swaying Grass</div>
-        <div
-          ref={frameRef}
-          className='w-[500px]'
-        >
-          <Scene setRatio={setRatio} />
-        </div>
+const SwayingGrass = React.memo(() => {
+  const [getFrame, setFrame] = useElemRefGetSet()
+  const setRatio = useCallback((aspectRatio: number) => {
+    const f = getFrame()
+    if (f) {
+      const w = getViewProps(f).w
+      f.style.height = `${w / aspectRatio}px`
+    }
+  }, [])
+  
+  
+  return (
+    <div className='colC gap-[4px]'>
+      <div>Swaying Grass</div>
+      <div
+        ref={setFrame}
+        className='w-[500px]'
+      >
+        <Scene setRatio={setRatio} />
       </div>
-    )
-  }
-)
+    </div>
+  )
+})
 export default SwayingGrass
 
 

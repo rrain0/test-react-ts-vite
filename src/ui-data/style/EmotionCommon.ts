@@ -9,101 +9,147 @@ export namespace EmotionCommon {
     display: contents;
   `
   
-  export const abs = css`
-    position: absolute;
-    inset: 0; // top: 0; right: 0; bottom: 0; left: 0;
+  export const full = css`
+    width: 100%; height: 100%;
   `
-  
-  export const fixed = css`
-    position: fixed;
-    inset: 0; // top: 0; right: 0; bottom: 0; left: 0;
-  `
-  export const fixedTop = css`
-    position: fixed;
-    top: 0; right: 0; left: 0;
-  `
-  export const fixedBottom = css`
-    position: fixed;
-    right: 0; bottom: 0; left: 0;
-  `
-  
-  export const row = css`
-    display: flex;
-    flex-flow: row nowrap;
-  `
-  
-  export const rowC = css`
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-  `
-  
-  export const rowWrap = css`
-    display: flex;
-    flex-flow: row wrap;
-  `
-  
-  export const col = css`
-    display: flex;
-    flex-flow: column nowrap;
-  `
-  
-  export const colC = css`
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-  `
-  
-  
-  export const centerGrid = css`
-    display: grid;
-    place-items: center;
-  `
-  export const centerFlex = css`
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
-  `
-  export const center = centerFlex
-  export const centerContent = css`
-    display: grid;
-    place-content: center;
-  `
-  export const centerAll = css`
-    display: grid;
-    place-items: center;
-    grid: 'stack';
-    & > * { grid-area: stack; }
-  `
-  export const centerV = css`
-    display: grid;
-    place-items: center start;
-  `
-  export const centerStart = centerV
-  export const stretch = css`
-    display: grid;
-    place-items: stretch;
-    place-content: stretch;
-  `
-  export const stretchAll = css`
-    display: grid;
-    place-items: stretch;
-    grid: 'c';
-    & > * { grid-area: c; }
-  `
-  export const wrapper = css`
-    display: grid;
-    min-width: fit-content; min-height: fit-content;
-    width: fit-content; height: fit-content;
-    max-width: fit-content; max-height: fit-content;
-  `
-  export const fill = css`
+  export const fullMinMax = css`
     min-width: 100%; min-height: 100%;
     width: 100%; height: 100%;
     max-width: 100%; max-height: 100%;
   `
   
+  export const abs = css`
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  `
+  
+  export const fixed = css`
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  `
+  export const fixedTop = css`
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+  `
+  export const fixedBottom = css`
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%;
+  `
+  
+  
+  export const round = css`
+    border-radius: 999999px;
+  `
+  export const noThisPointer = css`
+    pointer-events: none;
+    & > * { pointer-events: auto; }
+  `
+  
+  
+  export const row = css`
+    display: flex;
+    flex-flow: row nowrap;
+  `
+  export const rowC = css`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  `
+  export const rowWrap = css`
+    display: flex;
+    flex-flow: row wrap;
+  `
+  export const rowWrapC = css`
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+  `
+  export const col = css`
+    display: flex;
+    flex-flow: column nowrap;
+  `
+  export const colC = css`
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  `
+  export const flexC = css`
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+  `
+  
+  
+  export const gridC = css`
+    display: grid;
+    place-items: center;
+  `
+  export const gridStackC = css`
+    display: grid;
+    place-items: center;
+    grid: 'stack';
+    & > * { grid-area: stack; }
+  `
+  export const gridCV = css`
+    display: grid;
+    place-items: center start;
+  `
+  export const gridStretch = css`
+    display: grid;
+    place-items: stretch;
+    place-content: stretch;
+  `
+  export const gridStretchAll = css`
+    display: grid;
+    place-items: stretch;
+    grid: 'c';
+    & > * { grid-area: c; }
+  `
+  
+  
+  
+  export const max1Line = css`
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  `
+  // Ставит троеточие в конце контейнера, обрезая последнее слово
+  // Ширину надо обязательно задать
+  // С 'width: 100%' после текста будет оставаться пустое место до конца контейнера
+  export const max1LineBox = css`
+    display: table;
+    table-layout: fixed;
+    // на ios это делает ширину 0 и в итоге ничего не показывается
+    // width: fit-content;
+    width: 100%;
+  `
+  
+  
+  // Ставит троеточие после последнего слова, которое влезло!!!
+  // Если слово одно и оно не влезло то слово вылезет за пределы родителя!!!
+  // После троеточия будет оставаться пустое место до конца контейнера
+  export const maxLines = (lines: number) => css`
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: ${lines};
+  `
+  
+  
+  
+  export const hoverable = '@media (hover: hover) and (pointer: fine)'
+  
+  export const onHover = (cssStyle: SerializedStyles) => css`
+    ${hoverable} { :hover {
+      ${cssStyle};
+    } }
+  `
   
   
   
@@ -112,17 +158,6 @@ export namespace EmotionCommon {
       width: 100%;
     }
   `
-  
-  
-  
-  export const hoverable = '@media (hover: hover) and (pointer: fine)'
-  
-  export const onHover = (cssStyle: SerializedStyles) => css`
-    ${hoverable}{ :hover {
-      ${cssStyle};
-    } }
-  `
-  
   export const mobileWidth = (cssStyle: SerializedStyles) => css`
     @media only screen and (max-width: 480px) {
       ${cssStyle};
@@ -173,7 +208,7 @@ export namespace EmotionCommon {
   
   export const resetInput = css`
     ${reset};
-    :hover, :active, :focus-visible, :focus {
+    :where(:hover, :active, :focus-visible, :focus) {
       outline: none;
       box-shadow: none;
       border: none;
@@ -194,7 +229,7 @@ export namespace EmotionCommon {
   export const resetButton = css`
     ${reset};
     cursor: pointer;
-    :hover, :active, :focus-visible, :focus {
+    :where(:hover, :active, :focus, :focus-visible) {
       outline: none;
       box-shadow: none;
       border: none;
@@ -206,7 +241,7 @@ export namespace EmotionCommon {
   
   export const resetTextarea = css`
     ${reset};
-    :hover, :active, :focus-visible, :focus {
+    :where(:hover, :active, :focus, :focus-visible) {
       outline: none;
       box-shadow: none;
       border: none;
@@ -253,7 +288,7 @@ export namespace EmotionCommon {
       display: none;
     }
   `
-  export const hideWindowScrollbar = css`
+  export const noWindowScrollbars = css`
     html { ${noScrollbars} }
   `
   
@@ -291,110 +326,276 @@ export namespace EmotionCommon {
   
   export namespace Txt {
     
-    export const large4 = css`
+    export const s36Bold = css`
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 1.5;
+      letter-spacing: normal;
+    `
+    
+    export const s32Bold = css`
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    
+    export const s28 = css`
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 1.5;
+      letter-spacing: normal;
+    `
+    export const s28Bold = css`
       font-weight: 500;
       font-size: 28px;
-      line-height: 150%;
+      line-height: 1.5;
       letter-spacing: 0.05em;
     `
     
-    export const large3 = css`
+    
+    export const s24 = css`
       font-weight: 400;
       font-size: 24px;
-      line-height: 150%;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s24Wide = css`
+      font-weight: 400;
+      font-size: 24px;
+      line-height: 1.29;
       letter-spacing: 0.05em;
     `
-    
-    export const large3b = css`
+    export const s24Bold = css`
       font-weight: 500;
       font-size: 24px;
-      line-height: normal;
+      line-height: 1.29;
       letter-spacing: normal;
     `
-    
-    export const large2 = css`
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 150%;
+    export const s24BoldWide = css`
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 1.29;
       letter-spacing: 0.05em;
     `
     
-    export const large2b = css`
+    
+    export const s22 = css`
+      font-weight: 400;
+      font-size: 22px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s22Bold = css`
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    
+    
+    export const s20 = css`
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s20Bold = css`
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s20Bold600 = css`
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s20Wide = css`
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 1.29;
+      letter-spacing: 0.05em;
+    `
+    
+    
+    export const s18LhNorm = css`
       font-weight: 400;
       font-size: 18px;
       line-height: normal;
       letter-spacing: normal;
     `
+    export const s18BoldWideLhNorm = css`
+      font-weight: 500;
+      font-size: 18px;
+      line-height: normal;
+      letter-spacing: 0.05em;
+    `
+    export const s18WideLh150 = css`
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 1.5;
+      letter-spacing: 0.05em;
+    `
     
-    export const large2c = css`
+    
+    export const s17 = css`
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s17Bold = css`
+      font-weight: 500;
+      font-size: 17px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s17Wide = css`
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 1.29;
+      letter-spacing: 0.05em;
+    `
+    export const s17Bold600Wide = css`
       font-weight: 600;
       font-size: 17px;
       line-height: normal;
       letter-spacing: 0.05em;
     `
     
-    export const large1 = css`
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 129%;
-      letter-spacing: 0.05em;
-    `
     
-    export const large1b = css`
+    export const s16 = css`
       font-weight: 400;
       font-size: 16px;
       line-height: normal;
       letter-spacing: normal;
     `
-    
-    export const normal3 = css`
+    export const s16Bold = css`
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s16ExtraBold = css`
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s16Wide = css`
       font-weight: 400;
-      font-size: 15px;
-      line-height: 129%;
+      font-size: 16px;
+      line-height: 1.29;
       letter-spacing: 0.05em;
     `
-    
-    export const normal2 = css`
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 129%;
-      letter-spacing: 0.05em;
-    `
-    
-    export const normal2c = css`
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 129%;
-      letter-spacing: 0.05em;
-    `
-    
-    export const normal1 = css`
+    export const s16Thin = css`
       font-weight: 300;
       font-size: 16px;
-      line-height: 129%;
+      line-height: 1.29;
       letter-spacing: normal;
     `
     
-    export const small1 = css`
+    
+    export const s15 = css`
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.29;
+      letter-spacing: 0.05em;
+    `
+    export const s15Tight = css`
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s15Bold = css`
+      font-weight: 500;
+      font-size: 15px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s15Thin = css`
       font-weight: 300;
       font-size: 15px;
-      line-height: 129%;
+      line-height: 1.29;
       letter-spacing: normal;
     `
     
-    export const small2 = css`
+    
+    export const s14 = css`
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 1.29;
+      letter-spacing: 0.05em;
+    `
+    export const s14Bold = css`
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.29;
+      letter-spacing: 0.05em;
+    `
+    export const s14BoldWide = css`
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 1.29;
+      letter-spacing: 0.05em;
+    `
+    export const s14Bold600 = css`
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s14Bold600Wide = css`
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 1.29;
+      letter-spacing: 0.05em;
+    `
+    export const s14Thin = css`
       font-weight: 300;
       font-size: 14px;
-      line-height: 129%;
+      line-height: 1.29;
       letter-spacing: normal;
     `
     
     
+    export const s13 = css`
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
     
-    export const small5 = css`
+    
+    export const s12 = css`
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    export const s12Bold = css`
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    
+    
+    export const s11Bold = css`
+      font-weight: 500;
+      font-size: 11px;
+      line-height: 1.29;
+      letter-spacing: normal;
+    `
+    
+    
+    export const s10 = css`
       font-weight: 300;
       font-size: 10px;
-      line-height: 129%;
+      line-height: 1.29;
       letter-spacing: normal;
     `
   

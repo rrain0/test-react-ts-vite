@@ -1,5 +1,10 @@
 import { TypeU } from 'src/util/common/TypeU.ts'
+import { ViewU } from 'src/util/view/ViewU'
 import anyval = TypeU.anyval
+import RecordRo = TypeU.RecordRo
+import Pu = TypeU.Pu
+import WH = ViewU.WH
+import isdef = TypeU.isdef
 
 
 
@@ -30,12 +35,21 @@ import anyval = TypeU.anyval
   const window = window
   const window = document.defaultView
   const window = element.ownerDocument.documentElement.defaultView
+
+  IFRAME WINDOW / VIEWPORT
+  ● Get window (viewport):
+  const window = <iframe-element>.contentWindow
+  const window = <iframe-element>.contentDocument.defaultView
   
   DOCUMENT
-  ● Get document
+  ● Get document:
   const document = window.document
   const document = document
   const document = element.ownerDocument
+ 
+  IFRAME DOCUMENT
+  ● Get document:
+  const window = <iframe-element>.contentDocument
   
   HTML Element
   ● Get document (html):
@@ -75,12 +89,12 @@ function isWindow<T extends anyval>(view: T): view is T & Window {
 }
 
 
-export const getElemProps = (element: HTMLElement | Window = window) => new ElemProps(element)
+export const getViewProps = (view: HTMLElement | Window) => new ViewProps(view)
 
 
 
 
-export class ElemProps {
+export class ViewProps {
   constructor(public view: HTMLElement | Window) { }
   get html(): HTMLElement {
     if (isWindow(this.view)) return this.view.document.documentElement
@@ -92,9 +106,23 @@ export class ElemProps {
     if (isWindow(this.view)) return window.getComputedStyle(this.html)
     return window.getComputedStyle(this.view)
   }
-  // css custom property (variable) value
-  cssPropValue(propName: string): string {
+  
+  // get css custom property (variable) value
+  getCssPropValue(propName: string): string {
     return this.computedStyle.getPropertyValue(propName)
+  }
+  // set css custom property (variable) value
+  // Example: <ViewProps>.setCssProp('--w', `${w}px`)
+  setCssProp(propName: string, propValue: string) {
+    const v = isWindow(this.view) ? this.html : this.view
+    v.style.setProperty(propName, propValue)
+  }
+  setCssProps(props: RecordRo<string, string>) {
+    Object.entries(props).forEach(([prop, value]) => this.setCssProp(prop, value))
+  }
+  setWhCssProps({ w, h }: Pu<WH>) {
+    if (isdef(w)) this.setCssProp('--w', `${w}px`)
+    if (isdef(h)) this.setCssProp('--h', `${h}px`)
   }
   
   // get element bounding rect
@@ -126,6 +154,8 @@ export class ElemProps {
   }
   get vpXFloat() { return this.clientXFloat }
   get vpLeftFloat() { return this.clientXFloat }
+  get vpx() { return this.clientXFloat }
+  get x() { return this.clientXFloat }
   
   // верхний край viewport <---> внешняя граница верхнего бордера элемента
   // расстояние между верхним краем viewport и внешней границей верхнего бордера
@@ -137,6 +167,10 @@ export class ElemProps {
   }
   get vpYFloat() { return this.clientYFloat }
   get vpTopFloat() { return this.clientYFloat }
+  get vpy() { return this.clientYFloat }
+  get y() { return this.clientYFloat }
+  
+  get xy() { return { x: this.x, y: this.y } }
   
   // расстояние между правым краем viewport и внешней границей правого бордера
   get clientRightFloat() {
